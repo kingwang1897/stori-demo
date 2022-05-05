@@ -22,11 +22,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
-@SpringBootApplication(scanBasePackages = {"com.stori.sofa", "com.account"}, exclude = {RocketMQAutoConfiguration.class})
-@MapperScan("com.account.common.dal.mapper")
+@SpringBootApplication(scanBasePackages = {"com.stori.sofa", "com.account", "com.bill"}, exclude = {RocketMQAutoConfiguration.class})
+//@MapperScan({"com.account.common.dal.mapper","com.bill.common.dal.mapper"})
 @EnableScheduling
 public class WebApplication {
 
