@@ -1,9 +1,11 @@
 package com.bill.common.facade;
 
+import com.stori.sofa.model.Result;
+
 /**
  * external interface
  */
 public interface BillFacade {
 
-    public String getBill();
+    public Result<String> getBill();
 }

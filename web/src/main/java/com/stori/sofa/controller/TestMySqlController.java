@@ -9,7 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.account.common.facade.AccountFacade;
+import com.stori.sofa.model.Result;
 
+/**
+ * mysql test controller
+ * 
+ * @author wangkai
+ * @date 2022/05/05 18:34
+ **/
 @RestController
 public class TestMySqlController {
 
@@ -19,14 +26,14 @@ public class TestMySqlController {
     private AccountFacade accountFacade;
 
     /**
-     * testMySql
-     *
-     * @return
-     * @throws IOException
+     * mysql test function
+     * 
+     * @date 2022/05/05 18:35
+     * @return java.lang.String
      */
     @GetMapping("/test/mysql")
     public String testMySql() throws IOException {
-
-        return accountFacade.getAccount();
+        Result<String> account = accountFacade.getAccount();
+        return account.isSuccess() ? account.getData() : account.getMsg();
     }
 }
