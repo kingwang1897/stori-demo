@@ -12,6 +12,8 @@ import com.account.common.service.ModuleService;
 import com.alibaba.fastjson.JSON;
 import com.stori.sofa.model.Result;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 /**
  * external interface implement
  */
@@ -25,8 +27,13 @@ public class AccountFacadeImpl implements AccountFacade {
     @Autowired
     private ModuleService moduleService;
 
+    @Autowired
+    private MeterRegistry registry;
+
     @Override
     public Result<String> getAccount() {
+        registry.counter("AccountFacade.getAccount.count").increment();
+
         String response = moduleService.sayHello();
         logger.info("AccountFacadeImpl getAccount, from : {}.", response);
 

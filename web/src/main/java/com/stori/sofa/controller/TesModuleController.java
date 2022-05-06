@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bill.common.facade.BillFacade;
 import com.stori.sofa.model.Result;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 /**
  * module test controller
  * 
@@ -25,6 +27,9 @@ public class TesModuleController {
     @Autowired
     private BillFacade billFacade;
 
+    @Autowired
+    private MeterRegistry registry;
+
     /**
      * module test function
      * 
@@ -33,6 +38,8 @@ public class TesModuleController {
      */
     @GetMapping("/test/module")
     public String testModule() throws IOException {
+        registry.counter("TesModuleController.testModule.count").increment();
+
         Result<String> bill = billFacade.getBill();
         return bill.isSuccess() ? bill.getData() : bill.getMsg();
     }
