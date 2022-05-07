@@ -40,8 +40,8 @@ public class BillExternalFacadeImpl implements BillExternalFacade {
         registry.counter("billExternalFacade.getBill.count").increment();
 
         logger.info("billExternalFacade getBill, from : module-bill.");
-        Bill bill = billMapper.selectBillById(1L);
+        Bill bill = billMapper.selectBillById(2L);
 
-        return Result.ok("billExternalFacade getBill, from : module-bill, and bill is: " + JSON.toJSONString(bill));
+        return Result.ok(JSON.toJSONString(bill));
     }
 }

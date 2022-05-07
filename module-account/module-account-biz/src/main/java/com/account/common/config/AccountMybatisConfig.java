@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.stori.sofa.security.secrets.SecretsManager;
+
 /**
  * 1.注入配置文件 2.加载jdbc文件配置 3.开启事务 4.扫描java mapper文件地址
  */
@@ -37,7 +39,7 @@ public class AccountMybatisConfig implements EnvironmentAware {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(environment.getProperty("spring.datasource.account.url"));
         dataSource.setUsername(environment.getProperty("spring.datasource.account.username"));
-        dataSource.setPassword(environment.getProperty("spring.datasource.account.password"));
+        dataSource.setPassword(SecretsManager.decrypt(environment.getProperty("spring.datasource.account.password")));
         dataSource.setDriverClassName(environment.getProperty("spring.datasource.account.driver"));
         return dataSource;
     }

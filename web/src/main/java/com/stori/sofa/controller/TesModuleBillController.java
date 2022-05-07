@@ -44,7 +44,7 @@ public class TesModuleBillController {
         registry.counter("TesModuleBillController.ModuleBill.count").increment();
 
         Result<String> billInternal = billInternalFacade.getBill();
-        Result<String> billExternal = billInternalFacade.getBill();
+        Result<String> billExternal = billExternalFacade.getBill();
         return "billInternal is: " + billInternal.getData() + ", billExternal is: " + billExternal.getData();
     }
 }

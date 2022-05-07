@@ -46,7 +46,7 @@ public class AccountExternalFacadeImpl implements AccountExternalFacade {
         String response = moduleService.sayHello();
         logger.info("AccountExternalFacade getAccount, from : {}.", response);
 
-        Account account = accountMapper.selectById(1L);
+        Account account = accountMapper.selectById(2L);
         return Result.ok(JSON.toJSONString(account));
     }
 }
