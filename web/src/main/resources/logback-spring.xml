@@ -4,7 +4,7 @@
 <configuration>
 
     <springProperty scope="context" name="logging.path" source="logging.path"/>
-    <springProperty scope="context" name="logging.level" source="logging.level.com.alipay.sofa"/>
+    <springProperty scope="context" name="logging.level" source="logging.level.com.stori.sofa"/>
 
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -21,11 +21,57 @@
             <level>error</level>
         </filter>
         <!-- log name -->
-        <file>${logging.path}/web-app/common-error.log</file>
+        <file>${logging.path}/web/common-error.log</file>
         <!-- to generate a log file everyday with a longest lasting of 30 days -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- logfile name with daily rolling-->
-            <FileNamePattern>${logging.path}/web-app/common-error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${logging.path}/web/common-error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <!-- log perserve days-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR-APPENDER-ACCOUNT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!-- a filter that show green light for object that has a error log level-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <!-- log name -->
+        <file>${logging.path}/module-account/common-error.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>${logging.path}/module-account/common-error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <!-- log perserve days-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR-APPENDER-BILL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!-- a filter that show green light for object that has a error log level-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <!-- log name -->
+        <file>${logging.path}/module-bill/common-error.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>${logging.path}/module-bill/common-error.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!-- log perserve days-->
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
@@ -42,11 +88,55 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>${logging.level}</level>
         </filter>
-        <file>${logging.path}/web-app/common-default.log</file>
+        <file>${logging.path}/web/common-default.log</file>
         <!-- to generate a log file everyday with a longest lasting of 30 days -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- logfile name with daily rolling-->
-            <FileNamePattern>${logging.path}/web-app/common-default.log.%d{yyyy-MM-dd}
+            <FileNamePattern>${logging.path}/web/common-default.log.%d{yyyy-MM-dd}
+            </FileNamePattern>
+            <!-- log perserve days-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ROOT-APPENDER-ACCOUNT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/module-account/common-default.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>${logging.path}/module-account/common-default.log.%d{yyyy-MM-dd}
+            </FileNamePattern>
+            <!-- log perserve days-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ROOT-APPENDER-BILL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logging.level}</level>
+        </filter>
+        <file>${logging.path}/module-bill/common-default.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>${logging.path}/module-bill/common-default.log.%d{yyyy-MM-dd}
             </FileNamePattern>
             <!-- log perserve days-->
             <MaxHistory>30</MaxHistory>
@@ -65,18 +155,20 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>${logging.level}</level>
         </filter>
-        <file>${logging.path}/web-app/mdc-example.log</file>
+        <file>${logging.path}/web/mdc-example.log</file>
         <!-- to generate a log file everyday with a longest lasting of 30 days -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- logfile name with daily rolling-->
-            <FileNamePattern>${logging.path}/web-app/mdc-example.log.%d{yyyy-MM-dd}
+            <FileNamePattern>${logging.path}/web/mdc-example.log.%d{yyyy-MM-dd}
             </FileNamePattern>
             <!-- log perserve days-->
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{SOFA-TraceId},%X{SOFA-SpanId}]  %logger{50} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{SOFA-TraceId},%X{SOFA-SpanId}] %logger{50} -
+                %msg%n
+            </pattern>
             <!-- encoding -->
             <charset>UTF-8</charset>
         </encoder>
@@ -89,12 +181,12 @@
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>${logging.level}</level>
             </filter>
-            <file>${logging.path}/web-app/web-app-default-dev.log</file>
+            <file>${logging.path}/web/web-default-dev.log</file>
             <!-- to generate a log file everyday with a longest lasting of 30 days -->
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!-- logfile name with daily rolling-->
                 <FileNamePattern>
-                    ${logging.path}/web-app/web-app-default-dev.log.%d{yyyy-MM-dd}
+                    ${logging.path}/web/web-default-dev.log.%d{yyyy-MM-dd}
                 </FileNamePattern>
                 <!-- log perserve days-->
                 <MaxHistory>30</MaxHistory>
@@ -115,12 +207,12 @@
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>${logging.level}</level>
             </filter>
-            <file>${logging.path}/web-app/web-app-default-test.log</file>
+            <file>${logging.path}/web/web-default-test.log</file>
             <!-- to generate a log file everyday with a longest lasting of 30 days -->
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!-- logfile name with daily rolling-->
                 <FileNamePattern>
-                    ${logging.path}/web-app/web-app-default-test.log.%d{yyyy-MM-dd}
+                    ${logging.path}/web/web-default-test.log.%d{yyyy-MM-dd}
                 </FileNamePattern>
                 <!-- log perserve days-->
                 <MaxHistory>30</MaxHistory>
@@ -134,12 +226,27 @@
         </appender>
     </springProfile>
 
-    <logger name="com.alipay.sofa" level="${logging.level}" additivity="false">
+
+    <logger name="com.stori.sofa" level="${logging.level}" additivity="false">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="ROOT-APPENDER"/>
         <appender-ref ref="ERROR-APPENDER"/>
     </logger>
 
+    <logger name="com.account" level="${logging.level}" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROOT-APPENDER-ACCOUNT"/>
+        <appender-ref ref="ERROR-APPENDER-ACCOUNT"/>
+    </logger>
+
+    <logger name="com.bill" level="${logging.level}" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROOT-APPENDER-BILL"/>
+        <appender-ref ref="ERROR-APPENDER-BILL"/>
+    </logger>
+
     <logger name="MDC-EXAMPLE" level="${logging.level}" additivity="false">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="MDC-EXAMPLE-APPENDER"/>
     </logger>
 
