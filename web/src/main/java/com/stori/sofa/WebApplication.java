@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * 启动类
  * 
- * @author wangkai
+ * @author king
  * @date 2022/05/06 19:55
  **/
 @Component

@@ -9,11 +9,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.account.common.facade.AccountFacade;
-import com.bill.common.facade.BillFacade;
+import com.account.common.facade.AccountExternalFacade;
+import com.account.common.facade.AccountInternalFacade;
+import com.bill.common.facade.BillExternalFacade;
+import com.bill.common.facade.BillInternalFacade;
 
 /**
- * @author wangkai
+ * @author king
  * @date 2022/05/05 20:37
  **/
 @SpringBootTest
@@ -26,10 +28,16 @@ public class BaseTest {
     private WebApplicationContext context;
 
     @MockBean
-    public AccountFacade accountFacade;
+    public AccountInternalFacade accountInternalFacade;
 
     @MockBean
-    public BillFacade billFacade;
+    public AccountExternalFacade accountExternalFacade;
+
+    @MockBean
+    public BillInternalFacade billInternalFacade;
+
+    @MockBean
+    public BillExternalFacade billExternalFacade;
 
     /**
      * 前置步骤
