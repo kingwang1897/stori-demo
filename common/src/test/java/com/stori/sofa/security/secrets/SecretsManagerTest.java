@@ -22,11 +22,11 @@ public class SecretsManagerTest {
 
     @Test
     public void encrypt() {
-        String source = "chinard666";
+        String source = "Stori-Dev..";
         String encrypt = SecretsManager.encrypt(source);
         LOGGER.info("source:{}, encrypt:{}", source, encrypt);
         String decrypt = SecretsManager.decrypt(encrypt);
-        Assert.assertEquals("SecretsManager.decrypt(encrypt) failed, not equals.", source, decrypt);
+        Assert.assertEquals("SecretsManager.encrypt(source) failed, not equals.", source, decrypt);
         LOGGER.info("SecretsManager.encrypt(source) passed.");
     }
 }
