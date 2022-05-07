@@ -1,8 +1,10 @@
 package com.bill.common.config;
 
+import com.stori.sofa.security.secrets.SecretsManager;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +41,7 @@ public class BillMybatisConfig implements EnvironmentAware {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(environment.getProperty("spring.datasource.bill.url"));
         dataSource.setUsername(environment.getProperty("spring.datasource.bill.username"));
-        dataSource.setPassword(environment.getProperty("spring.datasource.bill.password"));
+        dataSource.setPassword(SecretsManager.decrypt(environment.getProperty("spring.datasource.bill.password")));
         dataSource.setDriverClassName(environment.getProperty("spring.datasource.bill.driver"));
         return dataSource;
     }
