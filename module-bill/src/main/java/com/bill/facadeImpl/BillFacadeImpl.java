@@ -11,6 +11,8 @@ import com.bill.common.dal.mapper.BillMapper;
 import com.bill.common.facade.BillFacade;
 import com.stori.sofa.model.Result;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 /**
  * external interface implement
  */
@@ -19,10 +21,15 @@ public class BillFacadeImpl implements BillFacade {
     private static final Logger logger = LoggerFactory.getLogger(BillFacadeImpl.class);
 
     @Autowired
+    private MeterRegistry registry;
+
+    @Autowired
     private BillMapper billMapper;
 
     @Override
     public Result<String> getBill() {
+        registry.counter("BillFacade.getBill.count").increment();
+
         logger.info("BillFacade getBill, from : module-bill.");
         Bill bill = billMapper.selectBillById(1L);
 

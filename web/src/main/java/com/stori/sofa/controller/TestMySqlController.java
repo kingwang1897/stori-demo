@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.account.common.facade.AccountFacade;
 import com.stori.sofa.model.Result;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 /**
  * mysql test controller
  * 
@@ -25,6 +27,9 @@ public class TestMySqlController {
     @Autowired
     private AccountFacade accountFacade;
 
+    @Autowired
+    private MeterRegistry registry;
+
     /**
      * mysql test function
      * 
@@ -33,6 +38,8 @@ public class TestMySqlController {
      */
     @GetMapping("/test/mysql")
     public String testMySql() throws IOException {
+        registry.counter("TestMySqlController.testMySql.count").increment();
+
         Result<String> account = accountFacade.getAccount();
         return account.isSuccess() ? account.getData() : account.getMsg();
     }
