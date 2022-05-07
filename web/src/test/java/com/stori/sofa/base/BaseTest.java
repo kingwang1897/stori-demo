@@ -9,10 +9,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.account.common.facade.AccountExternalFacade;
-import com.account.common.facade.AccountInternalFacade;
-import com.bill.common.facade.BillExternalFacade;
-import com.bill.common.facade.BillInternalFacade;
+import com.account.facade.AccountExternalFacade;
+import com.account.facade.AccountInternalFacade;
+import com.bill.facade.BillExternalFacade;
+import com.bill.facade.BillInternalFacade;
 
 /**
  * @author king

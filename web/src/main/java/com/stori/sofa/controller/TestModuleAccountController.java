@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.account.common.facade.AccountExternalFacade;
-import com.account.common.facade.AccountInternalFacade;
-import com.stori.sofa.model.Result;
+import com.account.facade.AccountExternalFacade;
+import com.account.facade.AccountInternalFacade;
+import com.account.model.Result;
 
 import io.micrometer.core.instrument.MeterRegistry;
 

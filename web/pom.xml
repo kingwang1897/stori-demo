@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>com.stori.sofa</groupId>
-            <artifactId>module-account-common</artifactId>
+            <artifactId>module-account-facade</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -72,7 +72,7 @@
         </dependency>
         <dependency>
             <groupId>com.stori.sofa</groupId>
-            <artifactId>module-bill-common</artifactId>
+            <artifactId>module-bill-facade</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.bill.common.dal.dao.Bill;
-import com.bill.common.dal.mapper.BillMapper;
-import com.bill.common.facade.BillInternalFacade;
-import com.stori.sofa.model.Result;
+import com.bill.dal.dao.Bill;
+import com.bill.dal.mapper.BillMapper;
+import com.bill.facade.BillInternalFacade;
+import com.bill.model.Result;
 
 import io.micrometer.core.instrument.MeterRegistry;
 

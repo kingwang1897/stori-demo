@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.account.model.Result;
 import com.stori.sofa.base.BaseTest;
-import com.stori.sofa.model.Result;
 
 /**
  * 测试用例

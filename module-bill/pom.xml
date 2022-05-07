@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>module-bill-biz</module>
-        <module>module-bill-common</module>
+        <module>module-bill-facade</module>
     </modules>
 
     <properties>

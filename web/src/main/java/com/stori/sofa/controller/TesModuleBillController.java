@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bill.common.facade.BillInternalFacade;
-import com.stori.sofa.model.Result;
+import com.bill.facade.BillExternalFacade;
+import com.bill.facade.BillInternalFacade;
+import com.bill.model.Result;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -28,7 +29,7 @@ public class TesModuleBillController {
     private BillInternalFacade billInternalFacade;
 
     @Autowired
-    private com.bill.common.facade.BillExternalFacade billExternalFacade;
+    private BillExternalFacade billExternalFacade;
 
     @Autowired
     private MeterRegistry registry;
