@@ -6,15 +6,16 @@
             http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd"
        default-autowire="byName">
 
-    <bean id="billExternalFacade" class="com.bill.facadeImpl.BillExternalFacadeImpl"></bean>
-
-    <sofa:service interface="com.bill.facade.BillExternalFacade" ref="billExternalFacade">
+    <!--    服务发布-->
+    <bean id="accountExternalFacade" class="com.account.facadeImpl.AccountExternalFacadeImpl">
+        <property name="message" value="Hello, accountExternalFacade service xml implementation."/>
+    </bean>
+    <sofa:service interface="com.account.facade.AccountExternalFacade" ref="accountExternalFacade">
         <sofa:binding.jvm/>
     </sofa:service>
 
-    <bean id="billInternalFacade" class="com.bill.facadeImpl.BillInternalFacadeImpl"></bean>
-
-    <sofa:service interface="com.bill.facade.BillInternalFacade" ref="billInternalFacade">
+    <bean id="accountInternalFacade" class="com.account.facadeImpl.AccountInternalFacadeImpl"></bean>
+    <sofa:service interface="com.account.facade.AccountInternalFacade" ref="accountInternalFacade">
         <sofa:binding.jvm/>
     </sofa:service>
 </beans>

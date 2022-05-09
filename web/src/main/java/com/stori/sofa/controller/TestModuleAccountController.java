@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.account.facade.AccountExternalFacade;
 import com.account.facade.AccountInternalFacade;
 import com.account.model.Result;
 
@@ -28,8 +27,9 @@ public class TestModuleAccountController {
     @Autowired
     private AccountInternalFacade accountInternalFacade;
 
-    @Autowired
-    private AccountExternalFacade accountExternalFacade;
+    // 因为没有引入依赖，所以打开注释会报错
+    // @Autowired
+    // private AccountExternalFacade accountExternalFacade;
 
     @Autowired
     private MeterRegistry registry;
@@ -45,8 +45,6 @@ public class TestModuleAccountController {
         registry.counter("TestModuleAccountController.ModuleAccount.count").increment();
 
         Result<String> accountInternal = accountInternalFacade.getAccount();
-        Result<String> accountExternal = accountExternalFacade.getAccount();
-        return "accountInternal is: " + accountInternal.getData() + ", accountExternal is: "
-            + accountExternal.getData();
+        return "accountInternal is: " + accountInternal.getData();
     }
 }

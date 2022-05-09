@@ -44,8 +44,21 @@ public class TesModuleBillController {
     public String testModuleBill() throws IOException {
         registry.counter("TesModuleBillController.ModuleBill.count").increment();
 
-        Result<String> billInternal = billInternalFacade.getBill();
         Result<String> billExternal = billExternalFacade.getBill();
-        return "billInternal is: " + billInternal.getData() + ", billExternal is: " + billExternal.getData();
+        return "billExternal is: " + billExternal.getData();
+    }
+
+    /**
+     * module-bill reference test function
+     *
+     * @date 2022/05/05 19:25
+     * @return java.lang.String
+     */
+    @GetMapping("/test/module/reference")
+    public String testModuleBillReference() throws IOException {
+        registry.counter("TesModuleBillController.ModuleBillReference.count").increment();
+
+        Result<String> billInternal = billInternalFacade.getBill();
+        return "billInternal is: " + billInternal.getData();
     }
 }

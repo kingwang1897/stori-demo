@@ -3,7 +3,6 @@ package com.account.facadeImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.account.dal.dao.Account;
 import com.account.dal.mapper.AccountMapper;
@@ -20,9 +19,16 @@ import io.micrometer.core.instrument.MeterRegistry;
  * @author king
  * @date 2022/05/07 13:54
  **/
-@Service("accountExternalFacade")
 public class AccountExternalFacadeImpl implements AccountExternalFacade {
     private static final Logger logger = LoggerFactory.getLogger(AccountExternalFacadeImpl.class);
+
+    private String message;
+
+    public AccountExternalFacadeImpl(String message) {
+        this.message = message;
+    }
+
+    public AccountExternalFacadeImpl() {}
 
     @Autowired
     private AccountMapper accountMapper;
@@ -44,9 +50,16 @@ public class AccountExternalFacadeImpl implements AccountExternalFacade {
         registry.counter("AccountExternalFacade.getAccount.count").increment();
 
         String response = moduleService.sayHello();
-        logger.info("AccountExternalFacade getAccount, from : {}.", response);
-
+        logger.info("AccountExternalFacade getAccount, from : {}, message is: {}.", response, message);
         Account account = accountMapper.selectById(2L);
         return Result.ok(JSON.toJSONString(account));
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

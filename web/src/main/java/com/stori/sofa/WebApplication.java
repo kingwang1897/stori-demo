@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @SpringBootApplication(scanBasePackages = {"com.stori.sofa", "com.account", "com.bill"},
     exclude = {RocketMQAutoConfiguration.class})
+@ImportResource({"classpath*:META-INF/stori-demo/*.xml"})
 public class WebApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);

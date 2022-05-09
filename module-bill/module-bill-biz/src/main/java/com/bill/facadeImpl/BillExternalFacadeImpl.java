@@ -3,7 +3,6 @@ package com.bill.facadeImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.bill.dal.dao.Bill;
@@ -19,7 +18,6 @@ import io.micrometer.core.instrument.MeterRegistry;
  * @author king
  * @date 2022/05/07 13:54
  **/
-@Service("billExternalFacade")
 public class BillExternalFacadeImpl implements BillExternalFacade {
     private static final Logger logger = LoggerFactory.getLogger(BillExternalFacadeImpl.class);
 
@@ -41,7 +39,6 @@ public class BillExternalFacadeImpl implements BillExternalFacade {
 
         logger.info("billExternalFacade getBill, from : module-bill.");
         Bill bill = billMapper.selectBillById(2L);
-
         return Result.ok(JSON.toJSONString(bill));
     }
 }

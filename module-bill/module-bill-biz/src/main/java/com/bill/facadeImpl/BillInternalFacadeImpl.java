@@ -3,8 +3,8 @@ package com.bill.facadeImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.account.facade.AccountExternalFacade;
 import com.alibaba.fastjson.JSON;
 import com.bill.dal.dao.Bill;
 import com.bill.dal.mapper.BillMapper;
@@ -19,7 +19,6 @@ import io.micrometer.core.instrument.MeterRegistry;
  * @author king
  * @date 2022/05/07 13:54
  **/
-@Service("billInternalFacade")
 public class BillInternalFacadeImpl implements BillInternalFacade {
     private static final Logger logger = LoggerFactory.getLogger(BillInternalFacadeImpl.class);
 
@@ -28,6 +27,9 @@ public class BillInternalFacadeImpl implements BillInternalFacade {
 
     @Autowired
     private BillMapper billMapper;
+
+    @Autowired
+    private AccountExternalFacade accountExternalFacade;
 
     /**
      * getBill
@@ -39,8 +41,10 @@ public class BillInternalFacadeImpl implements BillInternalFacade {
     public Result<String> getBill() {
         registry.counter("BillInternalFacade.getBill.count").increment();
 
-        logger.info("BillInternalFacade getBill, from : module-bill.");
+        com.account.model.Result<String> accountExternalResult = accountExternalFacade.getAccount();
         Bill bill = billMapper.selectBillById(1L);
-        return Result.ok(JSON.toJSONString(bill));
+        logger.info("BillInternalFacade getBill, account is : {}, bill is: {}.",
+            JSON.toJSONString(accountExternalResult), JSON.toJSONString(bill));
+        return Result.ok(JSON.toJSONString(bill) + ", reference is : " + JSON.toJSONString(accountExternalResult));
     }
 }
