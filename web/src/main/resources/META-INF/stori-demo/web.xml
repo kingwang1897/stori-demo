@@ -8,7 +8,7 @@
 
     <!--    module-bill-->
     <sofa:reference interface="com.bill.facade.BillExternalFacade" id="billExternalFacade">
-        <sofa:binding.jvm/>
+        <sofa:binding.bolt/>
     </sofa:reference>
     <sofa:reference interface="com.bill.facade.BillInternalFacade" id="billInternalFacade">
         <sofa:binding.jvm/>

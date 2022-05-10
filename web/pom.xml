@@ -83,6 +83,16 @@
             <artifactId>module-bill-biz</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- nacos + rpc -->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>rpc-sofa-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
