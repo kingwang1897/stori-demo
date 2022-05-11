@@ -7,14 +7,14 @@
        default-autowire="byName">
 
     <!--    服务发布-->
-    <bean id="accountExternalFacade" class="com.account.facadeImpl.AccountExternalFacadeImpl">
+    <bean id="accountExternalFacade" class="com.account.facade.impl.AccountExternalFacadeImpl">
         <property name="message" value="Hello, accountExternalFacade service xml implementation."/>
     </bean>
     <sofa:service interface="com.account.facade.AccountExternalFacade" ref="accountExternalFacade">
         <sofa:binding.jvm/>
     </sofa:service>
 
-    <bean id="accountInternalFacade" class="com.account.facadeImpl.AccountInternalFacadeImpl"></bean>
+    <bean id="accountInternalFacade" class="com.account.facade.impl.AccountInternalFacadeImpl"></bean>
     <sofa:service interface="com.account.facade.AccountInternalFacade" ref="accountInternalFacade">
         <sofa:binding.jvm/>
     </sofa:service>

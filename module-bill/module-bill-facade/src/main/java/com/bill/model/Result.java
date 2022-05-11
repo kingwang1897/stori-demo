@@ -1,6 +1,5 @@
 package com.bill.model;
 
-
 public class Result<T> {
 
     private int code;

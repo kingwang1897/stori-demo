@@ -7,12 +7,12 @@
        default-autowire="byName">
 
     <!--    服务发布-->
-    <bean id="billExternalFacade" class="com.bill.facadeImpl.BillExternalFacadeImpl"></bean>
+    <bean id="billExternalFacade" class="com.bill.facade.impl.BillExternalFacadeImpl"></bean>
     <sofa:service interface="com.bill.facade.BillExternalFacade" ref="billExternalFacade">
         <sofa:binding.bolt/>
     </sofa:service>
 
-    <bean id="billInternalFacade" class="com.bill.facadeImpl.BillInternalFacadeImpl"></bean>
+    <bean id="billInternalFacade" class="com.bill.facade.impl.BillInternalFacadeImpl"></bean>
     <sofa:service interface="com.bill.facade.BillInternalFacade" ref="billInternalFacade">
         <sofa:binding.jvm/>
     </sofa:service>
