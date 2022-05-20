@@ -2,6 +2,7 @@ package com.account.config;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -12,7 +13,6 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.stori.sofa.security.secrets.SecretsManager;
 
@@ -36,11 +36,12 @@ public class AccountMybatisConfig implements EnvironmentAware {
      */
     @Bean("accountDataSource")
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(environment.getProperty("spring.datasource.account.url"));
         dataSource.setUsername(environment.getProperty("spring.datasource.account.username"));
         dataSource.setPassword(SecretsManager.decrypt(environment.getProperty("spring.datasource.account.password")));
         dataSource.setDriverClassName(environment.getProperty("spring.datasource.account.driver"));
+        dataSource.setMaxTotal(Integer.valueOf(environment.getProperty("spring.datasource.max.active")));
         return dataSource;
     }
 
