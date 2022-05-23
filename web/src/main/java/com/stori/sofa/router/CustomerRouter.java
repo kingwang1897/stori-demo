@@ -46,7 +46,7 @@ public class CustomerRouter extends Router {
     }
 
     /**
-     * 自定义路由规则，在sofa-rpc自带的router后执行。 **适用于依赖其他应用发布的服务**
+     * 自定义路由规则，在sofa-rpc自带的router后执行。 **适用于依赖其他应用发布的服务，本应用发布服务需特加上配置：jvm-first="false" **
      *
      * 若服务提供方列表中有与服务调用方应用名称同后缀的，则优先使用，否则直接返回上一个router获取的服务提供方列表
      *
