@@ -47,4 +47,17 @@ public class TestModuleAccountController {
         Result<String> accountInternal = accountInternalFacade.getAccount();
         return "accountInternal is: " + accountInternal.getData();
     }
+
+    /**
+     * module-account test nacos config function
+     *
+     * @date 2022/05/23 19:25
+     * @return java.lang.String
+     */
+    @GetMapping("/test/module/account/nacos/config")
+    public String testNacosConfig() throws IOException {
+        registry.counter("TestModuleAccountController.NacosConfig.count").increment();
+
+        return "accountInternal nacos config is: " + accountInternalFacade.getNacosConfig().getData();
+    }
 }
