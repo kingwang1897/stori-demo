@@ -1,14 +1,14 @@
 package com.bill.dal.dao;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class Bill {
 
     private Long id;
     private String name;
-    private Integer value;
-    private Timestamp gmtCreate;
-    private Timestamp gmtUpdate;
+    private String value;
+    private Date gmtCreate;
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -26,27 +26,27 @@ public class Bill {
         this.name = name;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public Timestamp getGmtCreate() {
+    public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Timestamp gmtCreate) {
+    public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Timestamp getGmtUpdate() {
-        return gmtUpdate;
+    public Date getGmtModified() {
+        return gmtModified;
     }
 
-    public void setGmtUpdate(Timestamp gmtUpdate) {
-        this.gmtUpdate = gmtUpdate;
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

@@ -6,7 +6,7 @@
         <id column="name" jdbcType="VARCHAR" property="name"/>
         <id column="age" jdbcType="INTEGER" property="age"/>
         <id column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
-        <id column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate"/>
+        <id column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
     </resultMap>
 
     <!--id与对应中的Mapper接口文件中的方法名相同-->

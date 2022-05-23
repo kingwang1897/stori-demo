@@ -4,9 +4,9 @@
     <resultMap type="com.bill.dal.dao.Bill" id="BaseResultMap">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <id column="name" jdbcType="VARCHAR" property="name"/>
-        <id column="value" jdbcType="INTEGER" property="value"/>
+        <id column="value" jdbcType="VARCHAR" property="value"/>
         <id column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
-        <id column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate"/>
+        <id column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
     </resultMap>
 
     <!--id与对应中的Mapper接口文件中的方法名相同-->
