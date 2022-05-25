@@ -83,6 +83,29 @@
         </encoder>
     </appender>
 
+    <appender name="ERROR-APPENDER-BILL-DAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!-- a filter that show green light for object that has a error log level-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <!-- log name -->
+        <file>${logging.path}/module-bill-dal/common-error.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>${logging.path}/module-bill-dal/common-error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <!-- log perserve days-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
     <appender name="ROOT-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -137,6 +160,25 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- logfile name with daily rolling-->
             <FileNamePattern>${logging.path}/module-bill/common-default.log.%d{yyyy-MM-dd}
+            </FileNamePattern>
+            <!-- log perserve days-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--output format：%d is for date，%thread is for thread name，%-5level：loglevel with 5 character  %msg：log message，%n line breaker-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <!-- encoding -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ROOT-APPENDER-BILL-DAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>${logging.path}/module-bill-dal/common-default.log</file>
+        <!-- to generate a log file everyday with a longest lasting of 30 days -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- logfile name with daily rolling-->
+            <FileNamePattern>${logging.path}/module-bill-dal/common-default.log.%d{yyyy-MM-dd}
             </FileNamePattern>
             <!-- log perserve days-->
             <MaxHistory>30</MaxHistory>
@@ -244,6 +286,13 @@
         <appender-ref ref="ROOT-APPENDER-BILL"/>
         <appender-ref ref="ERROR-APPENDER-BILL"/>
     </logger>
+
+    <logger name="com.bill.dal" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROOT-APPENDER-BILL-DAL"/>
+        <appender-ref ref="ERROR-APPENDER-BILL-DAL"/>
+    </logger>
+
 
     <logger name="MDC-EXAMPLE" level="${logging.level}" additivity="false">
         <appender-ref ref="STDOUT"/>

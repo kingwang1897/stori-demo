@@ -124,7 +124,7 @@ public class BillDruidDBConfig implements EnvironmentAware {
     public SqlSessionFactoryBean mysqlSqlSessionFactory(@Autowired @Qualifier("billDataSource") DataSource dataSource)
         throws Exception {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        configuration.setLogImpl(org.apache.ibatis.logging.slf4j.Slf4jImpl.class);
         configuration.setEnvironment(new Environment("billEnv", new JdbcTransactionFactory(), dataSource));
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setConfiguration(configuration);
