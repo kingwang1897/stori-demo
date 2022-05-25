@@ -8,7 +8,9 @@
 
     <!--    module-bill-->
     <sofa:reference interface="com.bill.facade.BillExternalFacade" id="billExternalFacade" jvm-first="false">
-        <sofa:binding.bolt/>
+        <sofa:binding.bolt>
+            <sofa:global-attrs timeout="15000"/>
+        </sofa:binding.bolt>
     </sofa:reference>
     <sofa:reference interface="com.bill.facade.BillInternalFacade" id="billInternalFacade">
         <sofa:binding.jvm/>
