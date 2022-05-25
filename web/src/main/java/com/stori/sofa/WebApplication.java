@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @SpringBootApplication(scanBasePackages = {"com.stori.sofa", "com.account", "com.bill"},
     exclude = {RocketMQAutoConfiguration.class})
-@ImportResource({"classpath*:META-INF/stori-demo/*.xml"})
+@ImportResource({"classpath:META-INF/stori-demo/*.xml"})
 public class WebApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);
