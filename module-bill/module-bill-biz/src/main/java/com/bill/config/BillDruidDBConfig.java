@@ -22,6 +22,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.alipay.sofa.tracer.plugins.datasource.SmartDataSource;
 import com.stori.sofa.security.secrets.SecretsManager;
 
 /**
@@ -121,10 +122,9 @@ public class BillDruidDBConfig implements EnvironmentAware {
     }
 
     @Bean("billSqlSessionFactory")
-    public SqlSessionFactoryBean mysqlSqlSessionFactory(@Autowired @Qualifier("billDataSource") DataSource dataSource)
-        throws Exception {
+    public SqlSessionFactoryBean
+        mysqlSqlSessionFactory(@Autowired @Qualifier("billSmartDataSource") DataSource dataSource) throws Exception {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setLogImpl(org.apache.ibatis.logging.slf4j.Slf4jImpl.class);
         configuration.setEnvironment(new Environment("billEnv", new JdbcTransactionFactory(), dataSource));
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setConfiguration(configuration);
@@ -143,5 +143,16 @@ public class BillDruidDBConfig implements EnvironmentAware {
         scanner.setSqlSessionFactory(sqlSessionFactory.getObject());
         scanner.setBasePackage("com.bill.dal.mapper");
         return scanner;
+    }
+
+    @Bean("billSmartDataSource")
+    public SmartDataSource initTracer(@Autowired @Qualifier("billDataSource") DataSource dataSource) throws Exception {
+        SmartDataSource smartDataSource = new SmartDataSource();
+        smartDataSource.setAppName(environment.getProperty("spring.application.name"));
+        smartDataSource.setDelegate(dataSource);
+        smartDataSource.setDatabase("corebankingdb");
+        smartDataSource.setDbType("MYSQL");
+        smartDataSource.init();
+        return smartDataSource;
     }
 }

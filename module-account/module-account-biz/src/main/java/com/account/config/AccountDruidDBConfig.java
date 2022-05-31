@@ -17,11 +17,13 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import com.alipay.sofa.tracer.plugins.datasource.SmartDataSource;
 import com.stori.sofa.security.secrets.SecretsManager;
 
 /**
@@ -46,6 +48,7 @@ public class AccountDruidDBConfig implements EnvironmentAware {
      *
      * @return org.springframework.boot.web.servlet.ServletRegistrationBean
      */
+    @Primary
     @Bean("accountServletRegistrationBean")
     public ServletRegistrationBean druidServlet() {
         ServletRegistrationBean reg = new ServletRegistrationBean();
@@ -69,6 +72,7 @@ public class AccountDruidDBConfig implements EnvironmentAware {
      *
      * @return org.springframework.boot.web.servlet.FilterRegistrationBean
      */
+    @Primary
     @Bean("accountFilterRegistrationBean")
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
@@ -120,11 +124,11 @@ public class AccountDruidDBConfig implements EnvironmentAware {
         return datasource;
     }
 
+    @Primary
     @Bean("accountSqlSessionFactory")
     public SqlSessionFactoryBean
-        mysqlSqlSessionFactory(@Autowired @Qualifier("accountDataSource") DataSource dataSource) throws Exception {
+        mysqlSqlSessionFactory(@Autowired @Qualifier("accountSmartDataSource") DataSource dataSource) throws Exception {
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
         configuration.setEnvironment(new Environment("accountEnv", new JdbcTransactionFactory(), dataSource));
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setConfiguration(configuration);
@@ -136,6 +140,7 @@ public class AccountDruidDBConfig implements EnvironmentAware {
         return sqlSessionFactory;
     }
 
+    @Primary
     @Bean("accountMapperScanner")
     public MapperScannerConfigurer mysqlMapperScanner(
         @Autowired @Qualifier("accountSqlSessionFactory") SqlSessionFactoryBean sqlSessionFactory) throws Exception {
@@ -143,5 +148,18 @@ public class AccountDruidDBConfig implements EnvironmentAware {
         scanner.setSqlSessionFactory(sqlSessionFactory.getObject());
         scanner.setBasePackage("com.account.dal.mapper");
         return scanner;
+    }
+
+    @Primary
+    @Bean("accountSmartDataSource")
+    public SmartDataSource initTracer(@Autowired @Qualifier("accountDataSource") DataSource dataSource)
+        throws Exception {
+        SmartDataSource smartDataSource = new SmartDataSource();
+        smartDataSource.setAppName(environment.getProperty("spring.application.name"));
+        smartDataSource.setDelegate(dataSource);
+        smartDataSource.setDatabase("corebankingdb");
+        smartDataSource.setDbType("MYSQL");
+        smartDataSource.init();
+        return smartDataSource;
     }
 }

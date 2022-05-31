@@ -25,6 +25,10 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>runtime-sofa-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>tracer-sofa-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.alipay.sofa</groupId>
@@ -44,6 +48,7 @@
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
         <!-- test -->
@@ -93,6 +98,7 @@
         <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
+            <version>2.0.2</version>-->
         </dependency>
     </dependencies>
 
