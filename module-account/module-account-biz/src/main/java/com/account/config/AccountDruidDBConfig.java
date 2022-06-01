@@ -1,7 +1,5 @@
 package com.account.config;
 
-import java.sql.SQLException;
-
 import javax.sql.DataSource;
 
 import org.apache.ibatis.mapping.Environment;
@@ -97,29 +95,30 @@ public class AccountDruidDBConfig implements EnvironmentAware {
         datasource.setPassword(SecretsManager.decrypt(environment.getProperty("spring.datasource.account.password")));
         datasource.setDriverClassName(environment.getProperty("spring.datasource.account.driver"));
 
-        // configuration
-        datasource.setInitialSize(environment.getProperty("spring.datasource.account.initialSize", Integer.class));
-        datasource.setMinIdle(environment.getProperty("spring.datasource.account.minIdle", Integer.class));
-        datasource.setMaxActive(environment.getProperty("spring.datasource.account.maxActive", Integer.class));
-        datasource.setMaxWait(environment.getProperty("spring.datasource.account.maxWait", Integer.class));
-        datasource.setTimeBetweenEvictionRunsMillis(
-            environment.getProperty("spring.datasource.account.timeBetweenEvictionRunsMillis", Integer.class));
-        datasource.setMinEvictableIdleTimeMillis(
-            environment.getProperty("spring.datasource.account.minEvictableIdleTimeMillis", Integer.class));
-        datasource.setValidationQuery(environment.getProperty("spring.datasource.account.validationQuery"));
-        datasource.setTestWhileIdle(environment.getProperty("spring.datasource.account.testWhileIdle", boolean.class));
-        datasource.setTestOnBorrow(environment.getProperty("spring.datasource.account.testOnBorrow", boolean.class));
-        datasource.setTestOnReturn(environment.getProperty("spring.datasource.account.testOnReturn", boolean.class));
-        datasource.setPoolPreparedStatements(
-            environment.getProperty("spring.datasource.account.poolPreparedStatements", boolean.class));
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(environment
-            .getProperty("spring.datasource.account.maxPoolPreparedStatementPerConnectionSize", Integer.class));
-        try {
-            datasource.setFilters(environment.getProperty("spring.datasource.account.filters"));
-        } catch (SQLException e) {
-            logger.error("druid configuration initialization filter", e);
-        }
-        datasource.setConnectionProperties(environment.getProperty("spring.datasource.account.connectionProperties"));
+        // // configuration
+        // datasource.setInitialSize(environment.getProperty("spring.datasource.account.initialSize", Integer.class));
+        // datasource.setMinIdle(environment.getProperty("spring.datasource.account.minIdle", Integer.class));
+        // datasource.setMaxActive(environment.getProperty("spring.datasource.account.maxActive", Integer.class));
+        // datasource.setMaxWait(environment.getProperty("spring.datasource.account.maxWait", Integer.class));
+        // datasource.setTimeBetweenEvictionRunsMillis(
+        // environment.getProperty("spring.datasource.account.timeBetweenEvictionRunsMillis", Integer.class));
+        // datasource.setMinEvictableIdleTimeMillis(
+        // environment.getProperty("spring.datasource.account.minEvictableIdleTimeMillis", Integer.class));
+        // datasource.setValidationQuery(environment.getProperty("spring.datasource.account.validationQuery"));
+        // datasource.setTestWhileIdle(environment.getProperty("spring.datasource.account.testWhileIdle",
+        // boolean.class));
+        // datasource.setTestOnBorrow(environment.getProperty("spring.datasource.account.testOnBorrow", boolean.class));
+        // datasource.setTestOnReturn(environment.getProperty("spring.datasource.account.testOnReturn", boolean.class));
+        // datasource.setPoolPreparedStatements(
+        // environment.getProperty("spring.datasource.account.poolPreparedStatements", boolean.class));
+        // datasource.setMaxPoolPreparedStatementPerConnectionSize(environment
+        // .getProperty("spring.datasource.account.maxPoolPreparedStatementPerConnectionSize", Integer.class));
+        // try {
+        // datasource.setFilters(environment.getProperty("spring.datasource.account.filters"));
+        // } catch (SQLException e) {
+        // logger.error("druid configuration initialization filter", e);
+        // }
+        // datasource.setConnectionProperties(environment.getProperty("spring.datasource.account.connectionProperties"));
 
         return datasource;
     }
@@ -155,7 +154,8 @@ public class AccountDruidDBConfig implements EnvironmentAware {
     public SmartDataSource initTracer(@Autowired @Qualifier("accountDataSource") DataSource dataSource)
         throws Exception {
         SmartDataSource smartDataSource = new SmartDataSource();
-        smartDataSource.setAppName(environment.getProperty("spring.application.name"));
+        smartDataSource.setAppName("module-account-biz");
+        // smartDataSource.setAppName(environment.getProperty("spring.application.name"));
         smartDataSource.setDelegate(dataSource);
         smartDataSource.setDatabase("corebankingdb");
         smartDataSource.setDbType("MYSQL");

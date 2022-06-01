@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.account.config.NacosConfig;
 import com.account.dal.dao.Account;
 import com.account.dal.mapper.AccountMapper;
 import com.account.facade.AccountInternalFacade;
@@ -28,8 +27,8 @@ public class AccountInternalFacadeImpl implements AccountInternalFacade {
     @Autowired
     private MeterRegistry registry;
 
-    @Autowired
-    private NacosConfig nacosConfig;
+    // @Autowired
+    // private NacosConfig nacosConfig;
 
     /**
      * getAccount
@@ -55,6 +54,7 @@ public class AccountInternalFacadeImpl implements AccountInternalFacade {
     public Result<String> getNacosConfig() {
         registry.counter("AccountInternalFacade.getAccount.count").increment();
 
-        return Result.ok(nacosConfig.getDegradeConfig());
+        // return Result.ok(nacosConfig.getDegradeConfig());
+        return Result.ok("");
     }
 }
