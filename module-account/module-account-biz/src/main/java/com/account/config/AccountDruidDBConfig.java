@@ -20,16 +20,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.account.model.AccountNacosProperties;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.alipay.sofa.tracer.plugins.datasource.SmartDataSource;
-import com.stori.sofa.security.secrets.SecretsManager;
 
 /**
  * Druid config
  *
- * @author wangkai
+ * @author king
  * @date 2022/05/23 14:53
  **/
 @Configuration
@@ -50,16 +50,19 @@ public class AccountDruidDBConfig implements EnvironmentAware {
      */
     @Primary
     @Bean("accountServletRegistrationBean")
-    public ServletRegistrationBean druidServlet() {
+    public ServletRegistrationBean
+        druidServlet(@Autowired @Qualifier("accountNacosProperties") AccountNacosProperties commonNacosProperties) {
         ServletRegistrationBean reg = new ServletRegistrationBean();
         reg.setServlet(new StatViewServlet());
         reg.addUrlMappings("/druid/*");
         // 用户名也可以自己设置，及直接写死
-        reg.addInitParameter("loginUsername", "root");
+        reg.addInitParameter("loginUsername",
+            commonNacosProperties.getProperty("spring.datasource.account.loginUsername"));
         // 密码也可以自己设置，及直接写死
-        reg.addInitParameter("loginPassword", "root");
+        reg.addInitParameter("loginPassword",
+            commonNacosProperties.getProperty("spring.datasource.account.loginPassword"));
         // 慢SQL记录
-        reg.addInitParameter("logSlowSql", environment.getProperty("spring.datasource.account.username"));
+        reg.addInitParameter("logSlowSql", commonNacosProperties.getProperty("spring.datasource.account.username"));
         // IP白名单 (没有配置或者为空，则允许所有访问，若配置多个则用逗号隔开)
         // reg.addInitParameter("allow", "101.6.244.30");
         // 禁用HTML页面上的“Reset All”功能
@@ -90,36 +93,43 @@ public class AccountDruidDBConfig implements EnvironmentAware {
      * @return javax.sql.DataSource
      */
     @Bean("accountDataSource")
-    public DataSource dataSource() {
+    public DataSource
+        dataSource(@Autowired @Qualifier("accountNacosProperties") AccountNacosProperties commonNacosProperties) {
         DruidDataSource datasource = new DruidDataSource();
-        datasource.setUrl(environment.getProperty("spring.datasource.account.url"));
-        datasource.setUsername(environment.getProperty("spring.datasource.account.username"));
-        datasource.setPassword(SecretsManager.decrypt(environment.getProperty("spring.datasource.account.password")));
-        datasource.setDriverClassName(environment.getProperty("spring.datasource.account.driver"));
+        datasource.setUrl(commonNacosProperties.getProperty("spring.datasource.account.url"));
+        datasource.setUsername(commonNacosProperties.getProperty("spring.datasource.account.username"));
+        datasource.setPassword(commonNacosProperties.getProperty("spring.datasource.account.password"));
+        datasource.setDriverClassName(commonNacosProperties.getProperty("spring.datasource.account.driver"));
 
         // configuration
-        datasource.setInitialSize(environment.getProperty("spring.datasource.account.initialSize", Integer.class));
-        datasource.setMinIdle(environment.getProperty("spring.datasource.account.minIdle", Integer.class));
-        datasource.setMaxActive(environment.getProperty("spring.datasource.account.maxActive", Integer.class));
-        datasource.setMaxWait(environment.getProperty("spring.datasource.account.maxWait", Integer.class));
-        datasource.setTimeBetweenEvictionRunsMillis(
-            environment.getProperty("spring.datasource.account.timeBetweenEvictionRunsMillis", Integer.class));
+        datasource
+            .setInitialSize(commonNacosProperties.getProperty("spring.datasource.account.initialSize", Integer.class));
+        datasource.setMinIdle(commonNacosProperties.getProperty("spring.datasource.account.minIdle", Integer.class));
+        datasource
+            .setMaxActive(commonNacosProperties.getProperty("spring.datasource.account.maxActive", Integer.class));
+        datasource.setMaxWait(commonNacosProperties.getProperty("spring.datasource.account.maxWait", Integer.class));
+        datasource.setTimeBetweenEvictionRunsMillis(commonNacosProperties
+            .getProperty("spring.datasource.account.timeBetweenEvictionRunsMillis", Integer.class));
         datasource.setMinEvictableIdleTimeMillis(
-            environment.getProperty("spring.datasource.account.minEvictableIdleTimeMillis", Integer.class));
-        datasource.setValidationQuery(environment.getProperty("spring.datasource.account.validationQuery"));
-        datasource.setTestWhileIdle(environment.getProperty("spring.datasource.account.testWhileIdle", boolean.class));
-        datasource.setTestOnBorrow(environment.getProperty("spring.datasource.account.testOnBorrow", boolean.class));
-        datasource.setTestOnReturn(environment.getProperty("spring.datasource.account.testOnReturn", boolean.class));
+            commonNacosProperties.getProperty("spring.datasource.account.minEvictableIdleTimeMillis", Integer.class));
+        datasource.setValidationQuery(commonNacosProperties.getProperty("spring.datasource.account.validationQuery"));
+        datasource.setTestWhileIdle(
+            commonNacosProperties.getProperty("spring.datasource.account.testWhileIdle", boolean.class));
+        datasource.setTestOnBorrow(
+            commonNacosProperties.getProperty("spring.datasource.account.testOnBorrow", boolean.class));
+        datasource.setTestOnReturn(
+            commonNacosProperties.getProperty("spring.datasource.account.testOnReturn", boolean.class));
         datasource.setPoolPreparedStatements(
-            environment.getProperty("spring.datasource.account.poolPreparedStatements", boolean.class));
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(environment
+            commonNacosProperties.getProperty("spring.datasource.account.poolPreparedStatements", boolean.class));
+        datasource.setMaxPoolPreparedStatementPerConnectionSize(commonNacosProperties
             .getProperty("spring.datasource.account.maxPoolPreparedStatementPerConnectionSize", Integer.class));
         try {
-            datasource.setFilters(environment.getProperty("spring.datasource.account.filters"));
+            datasource.setFilters(commonNacosProperties.getProperty("spring.datasource.account.filters"));
         } catch (SQLException e) {
             logger.error("druid configuration initialization filter", e);
         }
-        datasource.setConnectionProperties(environment.getProperty("spring.datasource.account.connectionProperties"));
+        datasource.setConnectionProperties(
+            commonNacosProperties.getProperty("spring.datasource.account.connectionProperties"));
 
         return datasource;
     }
@@ -152,10 +162,10 @@ public class AccountDruidDBConfig implements EnvironmentAware {
 
     @Primary
     @Bean("accountSmartDataSource")
-    public SmartDataSource initTracer(@Autowired @Qualifier("accountDataSource") DataSource dataSource)
-        throws Exception {
+    public SmartDataSource initTracer(@Autowired @Qualifier("accountDataSource") DataSource dataSource,
+        @Autowired @Qualifier("accountNacosProperties") AccountNacosProperties commonNacosProperties) throws Exception {
         SmartDataSource smartDataSource = new SmartDataSource();
-        smartDataSource.setAppName(environment.getProperty("spring.application.name"));
+        smartDataSource.setAppName(commonNacosProperties.getProperty("spring.application.name"));
         smartDataSource.setDelegate(dataSource);
         smartDataSource.setDatabase("corebankingdb");
         smartDataSource.setDbType("MYSQL");

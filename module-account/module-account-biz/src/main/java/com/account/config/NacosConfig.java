@@ -9,23 +9,20 @@ import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 /**
  * Nacos配置
  * 
- * @author chongyangchen
+ * @author king
  */
 @Configuration
 @EnableNacosConfig
-@NacosPropertySource(dataId = "stroi-demo", autoRefreshed = true)
+@NacosPropertySource(dataId = "stroi-demo-account", autoRefreshed = true)
 public class NacosConfig {
 
     /**
-     * 降级配置
+     * 数据库密码
      */
-    @NacosValue(value = "${degradeConfig:null}", autoRefreshed = true)
-    private String degradeConfig;
+    @NacosValue(value = "${sqlPassword:false}", autoRefreshed = true)
+    private String sqlPassword;
 
-    /**
-     * getter of filed authorizeSwitch
-     */
-    public String getDegradeConfig() {
-        return degradeConfig;
+    public String getSqlPassword() {
+        return sqlPassword;
     }
 }
