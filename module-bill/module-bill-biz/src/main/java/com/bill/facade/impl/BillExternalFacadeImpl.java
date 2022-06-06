@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.bill.dal.dao.Bill;
 import com.bill.dal.mapper.BillMapper;
 import com.bill.facade.BillExternalFacade;
+import com.bill.facade.BillInternalFacade;
 import com.bill.model.Result;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -27,6 +28,9 @@ public class BillExternalFacadeImpl implements BillExternalFacade {
     @Autowired
     private BillMapper billMapper;
 
+    @Autowired
+    private BillInternalFacade billInternalFacade;
+
     /**
      * getBill
      *
@@ -39,6 +43,7 @@ public class BillExternalFacadeImpl implements BillExternalFacade {
 
         logger.info("billExternalFacade getBill, from : module-bill.");
         Bill bill = billMapper.selectBillById(2L);
-        return Result.ok(JSON.toJSONString(bill));
+
+        return Result.ok(JSON.toJSONString(bill) + ", reference is: " + billInternalFacade.getBill().getData());
     }
 }

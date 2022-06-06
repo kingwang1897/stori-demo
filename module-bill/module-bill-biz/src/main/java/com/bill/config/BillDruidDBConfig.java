@@ -49,7 +49,7 @@ public class BillDruidDBConfig implements EnvironmentAware {
      */
     @Bean("billServletRegistrationBean")
     public ServletRegistrationBean
-        druidServlet(@Autowired @Qualifier("billNacosProperties") BillNacosProperties commonNacosProperties) {
+        druidServlet(@Autowired @Qualifier("nacosProperties") BillNacosProperties commonNacosProperties) {
         ServletRegistrationBean reg = new ServletRegistrationBean();
         reg.setServlet(new StatViewServlet());
         reg.addUrlMappings("/druid/*");
@@ -90,8 +90,7 @@ public class BillDruidDBConfig implements EnvironmentAware {
      * @return javax.sql.DataSource
      */
     @Bean("billDataSource")
-    public DataSource
-        dataSource(@Autowired @Qualifier("billNacosProperties") BillNacosProperties commonNacosProperties) {
+    public DataSource dataSource(@Autowired @Qualifier("nacosProperties") BillNacosProperties commonNacosProperties) {
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(commonNacosProperties.getProperty("spring.datasource.bill.url"));
         datasource.setUsername(commonNacosProperties.getProperty("spring.datasource.bill.username"));
@@ -156,7 +155,7 @@ public class BillDruidDBConfig implements EnvironmentAware {
 
     @Bean("billSmartDataSource")
     public SmartDataSource initTracer(@Autowired @Qualifier("billDataSource") DataSource dataSource,
-        @Autowired @Qualifier("billNacosProperties") BillNacosProperties commonNacosProperties) throws Exception {
+        @Autowired @Qualifier("nacosProperties") BillNacosProperties commonNacosProperties) throws Exception {
         SmartDataSource smartDataSource = new SmartDataSource();
         smartDataSource.setAppName(commonNacosProperties.getProperty("spring.application.name"));
         smartDataSource.setDelegate(dataSource);

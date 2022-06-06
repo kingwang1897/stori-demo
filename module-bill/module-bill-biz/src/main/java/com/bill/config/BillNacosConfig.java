@@ -35,7 +35,7 @@ public class BillNacosConfig implements EnvironmentAware {
         this.environment = environment;
     }
 
-    @Bean("billNacosProperties")
+    @Bean("nacosProperties")
     public BillNacosProperties initNacosConfig() {
         try {
             BillNacosProperties billNacosProperties = new BillNacosProperties();

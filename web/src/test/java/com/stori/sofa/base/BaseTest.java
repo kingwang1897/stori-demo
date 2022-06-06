@@ -12,9 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.account.facade.AccountInternalFacade;
+import com.account.facade.AccountExternalFacade;
 import com.bill.facade.BillExternalFacade;
-import com.bill.facade.BillInternalFacade;
 import com.bill.model.Result;
 
 /**
@@ -33,11 +32,7 @@ public class BaseTest {
 
     @MockBean
     @Autowired
-    public AccountInternalFacade accountInternalFacade;
-
-    @MockBean
-    @Autowired
-    public BillInternalFacade billInternalFacade;
+    public AccountExternalFacade accountExternalFacade;
 
     @MockBean
     @Autowired
@@ -51,9 +46,8 @@ public class BaseTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 
         // 测试桩
-        Mockito.when(billInternalFacade.getBill()).thenReturn(Result.ok("true"));
         Mockito.when(billExternalFacade.getBill()).thenReturn(Result.ok("true"));
 
-        Mockito.when(accountInternalFacade.getAccount()).thenReturn(com.account.model.Result.ok("true"));
+        Mockito.when(accountExternalFacade.getAccount()).thenReturn(com.account.model.Result.ok("true"));
     }
 }

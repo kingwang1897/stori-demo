@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.stereotype.Component;
 
 /**
  * 启动类
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @author king
  * @date 2022/05/06 19:55
  **/
-@Component
 @SpringBootApplication(scanBasePackages = {"com.stori.sofa", "com.account", "com.bill"},
     exclude = {RocketMQAutoConfiguration.class})
 @ImportResource({"classpath:META-INF/stori-demo/*.xml"})

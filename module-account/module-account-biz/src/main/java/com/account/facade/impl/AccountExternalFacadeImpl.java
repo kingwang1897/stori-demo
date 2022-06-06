@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.account.dal.dao.Account;
 import com.account.dal.mapper.AccountMapper;
 import com.account.facade.AccountExternalFacade;
+import com.account.facade.AccountInternalFacade;
 import com.account.model.Result;
 import com.account.service.ModuleService;
 import com.alibaba.fastjson.JSON;
@@ -39,6 +40,9 @@ public class AccountExternalFacadeImpl implements AccountExternalFacade {
     @Autowired
     private MeterRegistry registry;
 
+    @Autowired
+    private AccountInternalFacade accountInternalFacade;
+
     /**
      * getAccount
      *
@@ -52,7 +56,9 @@ public class AccountExternalFacadeImpl implements AccountExternalFacade {
         String response = moduleService.sayHello();
         logger.info("AccountExternalFacade getAccount, from : {}, message is: {}.", response, message);
         Account account = accountMapper.selectById(2L);
-        return Result.ok(JSON.toJSONString(account));
+        return Result
+            .ok(JSON.toJSONString(account) + ", accountInternal is: " + accountInternalFacade.getAccount().getData()
+                + ", and [stori demo] ancosConfig is: " + accountInternalFacade.getNacosConfig().getData());
     }
 
     public String getMessage() {

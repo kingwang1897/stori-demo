@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.account.facade.AccountInternalFacade;
+import com.account.facade.AccountExternalFacade;
 import com.account.model.Result;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -25,11 +25,11 @@ public class TestModuleAccountController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestModuleAccountController.class);
 
     @Autowired
-    private AccountInternalFacade accountInternalFacade;
+    private AccountExternalFacade accountExternalFacade;
 
     // 因为没有引入依赖，所以打开注释会报错
     // @Autowired
-    // private AccountExternalFacade accountExternalFacade;
+    // private AccountInternalFacade accountInternalFacade;
 
     @Autowired
     private MeterRegistry registry;
@@ -44,20 +44,7 @@ public class TestModuleAccountController {
     public String testModuleAccount() throws IOException {
         registry.counter("TestModuleAccountController.ModuleAccount.count").increment();
 
-        Result<String> accountInternal = accountInternalFacade.getAccount();
+        Result<String> accountInternal = accountExternalFacade.getAccount();
         return "accountInternal is: " + accountInternal.getData();
-    }
-
-    /**
-     * module-account test nacos config function
-     *
-     * @date 2022/05/23 19:25
-     * @return java.lang.String
-     */
-    @GetMapping("/test/module/account/nacos/config")
-    public String testNacosConfig() throws IOException {
-        registry.counter("TestModuleAccountController.NacosConfig.count").increment();
-
-        return "accountInternal nacos config is: " + accountInternalFacade.getNacosConfig().getData();
     }
 }

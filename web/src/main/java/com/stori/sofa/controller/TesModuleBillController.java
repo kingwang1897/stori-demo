@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bill.facade.BillExternalFacade;
-import com.bill.facade.BillInternalFacade;
 import com.bill.model.Result;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -26,13 +25,14 @@ public class TesModuleBillController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TesModuleBillController.class);
 
     @Autowired
-    private BillInternalFacade billInternalFacade;
-
-    @Autowired
     private BillExternalFacade billExternalFacade;
 
     @Autowired
     private MeterRegistry registry;
+
+    // 因为没有引入依赖，所以打开注释会报错
+    // @Autowired
+    // private BillInternalFacade billInternalFacade;
 
     /**
      * module-bill test function
@@ -46,19 +46,5 @@ public class TesModuleBillController {
 
         Result<String> billExternal = billExternalFacade.getBill();
         return "billExternal is: " + billExternal.getData();
-    }
-
-    /**
-     * module-bill reference test function
-     *
-     * @date 2022/05/05 19:25
-     * @return java.lang.String
-     */
-    @GetMapping("/test/module/reference")
-    public String testModuleBillReference() throws IOException {
-        registry.counter("TesModuleBillController.ModuleBillReference.count").increment();
-
-        Result<String> billInternal = billInternalFacade.getBill();
-        return "billInternal is: " + billInternal.getData();
     }
 }

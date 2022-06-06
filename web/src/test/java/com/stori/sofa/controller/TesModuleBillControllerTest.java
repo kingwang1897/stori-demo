@@ -28,15 +28,4 @@ public class TesModuleBillControllerTest extends BaseTest {
         // Result<String> responseWrapper = new ObjectMapper().readValue(result, Result.class);
         Assert.assertEquals("billExternal is: true", result);
     }
-
-    @Test
-    public void testModuleBillReference() throws Exception {
-        MvcResult mvcResult =
-            mockMvc.perform(MockMvcRequestBuilders.get("/test/module/reference").accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print()).andReturn();
-        Assert.assertEquals(200, mvcResult.getResponse().getStatus());
-        String result = mvcResult.getResponse().getContentAsString();
-        // Result<String> responseWrapper = new ObjectMapper().readValue(result, Result.class);
-        Assert.assertEquals("billInternal is: true", result);
-    }
 }

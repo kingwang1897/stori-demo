@@ -12,12 +12,9 @@
             <sofa:global-attrs timeout="15000"/>
         </sofa:binding.bolt>
     </sofa:reference>
-    <sofa:reference interface="com.bill.facade.BillInternalFacade" id="billInternalFacade">
-        <sofa:binding.jvm/>
-    </sofa:reference>
 
     <!--    module-account-->
-    <sofa:reference interface="com.account.facade.AccountInternalFacade" id="accountInternalFacade">
+    <sofa:reference interface="com.account.facade.AccountExternalFacade" id="accountExternalFacade">
         <sofa:binding.jvm/>
     </sofa:reference>
 </beans>
