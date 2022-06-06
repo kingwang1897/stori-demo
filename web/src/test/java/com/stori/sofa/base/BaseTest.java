@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -20,7 +20,8 @@ import com.bill.model.Result;
  * @author king
  * @date 2022/05/05 20:37
  **/
-@RunWith(SpringRunner.class)
+// @RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class BaseTest {
@@ -30,12 +31,12 @@ public class BaseTest {
     @Autowired
     private WebApplicationContext context;
 
-    @MockBean
     @Autowired
+    @MockBean
     public AccountExternalFacade accountExternalFacade;
 
-    @MockBean
     @Autowired
+    @MockBean
     public BillExternalFacade billExternalFacade;
 
     /**

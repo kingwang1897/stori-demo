@@ -1,10 +1,15 @@
 package com.stori.sofa.mapper;
 
+import javax.annotation.Resource;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.bill.dal.dao.Bill;
+import com.bill.dal.mapper.BillMapper;
 import com.stori.sofa.base.BaseTest;
 
 /**
@@ -18,8 +23,8 @@ import com.stori.sofa.base.BaseTest;
 public class BillMapperTest extends BaseTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BillMapperTest.class);
 
-    // @Resource
-    // BillMapper billMapper;
+    @Resource
+    BillMapper billMapper;
 
     @Before
     public void setUp() {
@@ -28,8 +33,8 @@ public class BillMapperTest extends BaseTest {
 
     @Test
     public void testSelectBillById() {
-        // Bill bill = billMapper.selectBillById(1L);
-        // Assert.assertNotNull(bill);
+        Bill bill = billMapper.selectBillById(1L);
+        Assert.assertNotNull(bill);
         LOGGER.info("BillMapper.selectBillById() passed.");
     }
 }
